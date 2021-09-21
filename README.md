@@ -1,11 +1,11 @@
 # Assignment 1 Graphics Computer E
 
-## Object (Cube)
+## Object (Cricket Lighter)
 
-![20210921_220316](https://user-images.githubusercontent.com/49280352/134198182-c7df4a80-5404-4890-a516-4c0927b79c2d.jpg)
+![20210921_235155](https://user-images.githubusercontent.com/49280352/134214803-cd6a1a9a-1ece-4336-9255-9d4b682665e6.jpg)
 
-![20210921_220404](https://user-images.githubusercontent.com/49280352/134198205-e4fe2201-bd49-4291-974c-e192c7bea400.jpg)
+![20210921_235202](https://user-images.githubusercontent.com/49280352/134214812-08f01f71-7732-4813-8bde-b9b4e39edb33.jpg)
 
-![20210921_220417](https://user-images.githubusercontent.com/49280352/134198219-6b54e9a6-a56e-4f47-8dd5-d618bba3a16a.jpg)
+![20210921_235225](https://user-images.githubusercontent.com/49280352/134214822-6aebb79c-0257-42a3-965d-65d998eb15f8.jpg)
 
-![20210921_220429](https://user-images.githubusercontent.com/49280352/134198228-e4fdd8ee-603c-488e-b425-c08f74d13c8a.jpg)
+![20210921_235231](https://user-images.githubusercontent.com/49280352/134214883-1a183a2e-f2eb-43f8-b6d5-356c0df1a087.jpg)
