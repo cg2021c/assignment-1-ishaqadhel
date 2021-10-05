@@ -39,7 +39,7 @@ function main () {
 		alert('Your browser does not support WebGL');
 	}
 
-	gl.clearColor(0.75, 0.85, 0.8, 1.0);
+	gl.clearColor(0.8, 0.7, 0.5, 1.0);
 	gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
 
 	// Create shaders
@@ -75,8 +75,7 @@ function main () {
 		return;
 	}
 
-	// Create buffer
-	var triangleVertices = 
+	var vertices = 
 	[   // X, Y,        R, G, B
 
         // Bottom Rectangle
@@ -111,7 +110,7 @@ function main () {
         -0.2,  0.4,     0.0, 0.0, 0.0,      // Point G'
         -0.2,  0.35,    0.0, 0.0, 0.0,      // Point I
 
-        -0.05,  0.4,    0.0, 0.0, 0.0,      // Point G
+        -0.05, 0.4,     0.0, 0.0, 0.0,      // Point G
         -0.2,  0.35,    0.0, 0.0, 0.0,      // Point I
         -0.05, 0.35,    0.0, 0.0, 0.0,      // Point I'
 
@@ -122,19 +121,42 @@ function main () {
 
         -0.1,  0.35,    0.0, 0.0, 0.0,      //Point I''
         -0.1,  0.31,    0.0, 0.0, 0.0,      // Point EI
-        -0.15,  0.35,    0.0, 0.0, 0.0,      //Point I'''
+        -0.15, 0.35,    0.0, 0.0, 0.0,      //Point I'''
 
         -0.1,  0.31,    0.0, 0.0, 0.0,      // Point EI
-        -0.15,  0.35,    0.0, 0.0, 0.0,      //Point I'''
-        -0.15,  0.31,    0.0, 0.0, 0.0,      // Point EI'
+        -0.15, 0.35,    0.0, 0.0, 0.0,      //Point I'''
+        -0.15, 0.31,    0.0, 0.0, 0.0,      // Point EI'
+
+        // Toggle switch fire power
+        0.2,   0.3,     0.0, 0.0, 0.0,      // Point F
+        0.23,  0.3,     0.0, 0.0, 0.0,      // Point F'
+        0.23,  0.32,    0.0, 0.0, 0.0,      // Point F''
+
+        0.2,   0.3,     0.0, 0.0, 0.0,      // Point F
+        0.23,  0.32,    0.0, 0.0, 0.0,      // Point F''
+        0.2,  0.32,    0.0, 0.0, 0.0,      // Point F'''
+
+        // Top Trapesium
+        0.2,  0.4,     0.0, 0.0, 0.0,      // Point H
+        0.05, 0.4,     0.0, 0.0, 0.0,      // Point H'
+        0.05, 0.5,     0.0, 0.0, 0.0,      // Point H''
+
+        0.05, 0.4,     0.0, 0.0, 0.0,      // Point H'
+        0.05, 0.5,     0.0, 0.0, 0.0,      // Point H''
+        -0.05, 0.5,    0.0, 0.0, 0.0,      // Point H''
+
+        -0.05, 0.4,     0.0, 0.0, 0.0,     // Point G
+        0.05, 0.4,     0.0, 0.0, 0.0,      // Point H'
+        -0.05, 0.5,     0.0, 0.0, 0.0,     // Point O
 	];
 
-	var triangleVertexBufferObject = gl.createBuffer();
-	gl.bindBuffer(gl.ARRAY_BUFFER, triangleVertexBufferObject);
-	gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(triangleVertices), gl.STATIC_DRAW);
+	var vertexBufferObject = gl.createBuffer();
+	gl.bindBuffer(gl.ARRAY_BUFFER, vertexBufferObject);
+	gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(vertices), gl.STATIC_DRAW);
 
 	var positionAttribLocation = gl.getAttribLocation(program, 'vertPosition');
 	var colorAttribLocation = gl.getAttribLocation(program, 'vertColor');
+
 	gl.vertexAttribPointer(
 		positionAttribLocation, // Attribute location
 		2, // Number of elements per attribute
@@ -143,6 +165,7 @@ function main () {
 		5 * Float32Array.BYTES_PER_ELEMENT, // Size of an individual vertex
 		0 // Offset from the beginning of a single vertex to this attribute
 	);
+
 	gl.vertexAttribPointer(
 		colorAttribLocation, // Attribute location
 		3, // Number of elements per attribute
@@ -157,7 +180,7 @@ function main () {
 
 	// Main render loop
 	gl.useProgram(program);
-	gl.drawArrays(gl.TRIANGLES, 0, 33);
+	gl.drawArrays(gl.TRIANGLES, 0, 48);
 };
 
 main();
