@@ -1,5 +1,8 @@
 # Assignment 1 Graphics Computer E
 
+## WebGL Preview
+![gif-tugas-1](https://user-images.githubusercontent.com/49280352/136097234-5bf2c3e4-84e8-4b08-b442-94ccf8279546.gif)
+
 ## Object (Cricket Lighter)
 
 ![20210921_235155](https://user-images.githubusercontent.com/49280352/134214803-cd6a1a9a-1ece-4336-9255-9d4b682665e6.jpg)
