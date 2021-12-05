@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ishaq Adheltyo (167) - Assignment 3 - Grafkom C</title>
+</head>
+<body>
+    <script type="module">
+        
+        import * as THREE from './build/three.module.js';
+        // import { OrbitControls } from './js/OrbitControls.js';
+        import { OrbitControls } from 'https://threejsfundamentals.org/threejs/resources/threejs/r132/examples/jsm/controls/OrbitControls.js';
+
+        let scene, camera, renderer, pointLight, ambientLight;
+        let controls, cube;
+
+        /**
+         * @param {string} color
+         */
+        function usePlasticSpecularMaterial(color) {
+            const texture = new THREE.TextureLoader().load('./batik.png');
+            return new THREE.MeshPhysicalMaterial({
+                color: color,
+                roughness: 0.1,   
+                transmission: 1,  
+                thickness: 0,
+                clearcoat: 1,
+                ior: 2.3,
+                map: texture,
+            });
+        }
+
+        /**
+         * @param {string} color
+         */
+        function useMetalSpecularMaterial(color) {
+            const texture = new THREE.TextureLoader().load('./batik.png');
+            return new THREE.MeshPhysicalMaterial({
+                color: color,
+                roughness: 0.7,   
+                transmission: 1,  
+                thickness: 0,
+                metalness: 0.6,
+                reflectivity: 1.5,
+                map: texture,
+            });
+        }
+
+        function onDocumentKeyDown(event) {
+            if (event.key == 'w'){
+                cube.position.y += 0.5;
+                pointLight.position.y += 0.5;
+            }
+            else if (event.key == 's'){
+                cube.position.y -= 0.5;
+                pointLight.position.y -= 0.5;
+            }
+            else if (event.key == 'd'){
+                camera.position.x += 0.5;
+            }
+            else if (event.key == 'a'){
+                camera.position.x -= 0.5;
+            } 
+        };
+
+        function animate(){
+            renderer.render(scene, camera);
+            requestAnimationFrame(animate);
+        }
+
+        function init(){
+            scene = new THREE.Scene();
+            scene.background = new THREE.Color("#c6b47f");
+
+            renderer = new THREE.WebGLRenderer({alpha:true, antialias:true});
+            renderer.setSize(window.innerWidth, window.innerHeight);
+            document.body.appendChild(renderer.domElement);
+
+            camera = new THREE.PerspectiveCamera(75, window.innerWidth/window.innerHeight, 0.1, 1000);
+            camera.position.set(0, 0, 20);
+
+            document.addEventListener("keydown", onDocumentKeyDown, false);
+
+            /**
+             * Light 
+             * NRP = 167
+             * Intensity = 200 + 167 = 367
+             * **/
+            pointLight = new THREE.PointLight(0xff0000, 1);    
+            ambientLight = new THREE.AmbientLight(0x404040, 0.367);
+            pointLight.position.set (0, 0, 0)
+            scene.add(pointLight, ambientLight);
+            /** End Of Light **/
+
+            /** Middle Cube **/
+            const cubeGeometry = new THREE.BoxGeometry( 1, 1, 1 );
+            const cubeMaterial = new THREE.MeshBasicMaterial({
+                color: 0xFFFFFF
+            });
+            cube = new THREE.Mesh( cubeGeometry, cubeMaterial );
+            scene.add( cube );
+            /** End of Middle Cube **/
+
+            /** Right Cricket **/
+
+            const bodyCricketGeometry = new THREE.BoxGeometry(4, 10, 2);
+            const bodyCricket = new THREE.Mesh(bodyCricketGeometry, usePlasticSpecularMaterial("#e85656"));
+            bodyCricket.position.x = 10
+            scene.add(bodyCricket);
+
+            const upperBodyCricketGeometry = new THREE.BoxGeometry(4, 1, 2);
+            const upperBodyCricketMaterial = new THREE.MeshPhysicalMaterial();
+            const upperBodyCricket = new THREE.Mesh(upperBodyCricketGeometry, upperBodyCricketMaterial);
+            upperBodyCricket.position.set(10, 4.75, 0);
+            scene.add(upperBodyCricket);
+
+            const switchPowerCricketGeometry = new THREE.BoxGeometry(1.5, 0.5, 0.5);
+            const switchPowerCricketMaterial = new THREE.MeshPhysicalMaterial();
+            const switchPowerCricket = new THREE.Mesh(switchPowerCricketGeometry, switchPowerCricketMaterial);
+            switchPowerCricket.position.set(8, 4.75, 0);
+            scene.add(switchPowerCricket);
+
+            const triangleTopCricketGeometry = new THREE.CylinderGeometry( 1 , 1 , 2, 3, 1 );
+            const triangleTopCricketMaterial = new THREE.MeshPhysicalMaterial();
+            const triangleTopCricket = new THREE.Mesh(triangleTopCricketGeometry, triangleTopCricketMaterial);
+            triangleTopCricket.position.set(8.9, 5.5, 0);
+            triangleTopCricket.rotation.x = Math.PI/2;
+            triangleTopCricket.rotation.y = Math.PI/3;
+            scene.add(triangleTopCricket)
+
+            const squareTopCricketGeometry = new THREE.BoxGeometry(1.5, 1.5, 2);
+            const squareTopCricketMaterial = new THREE.MeshPhysicalMaterial();
+            const squareTopCricket = new THREE.Mesh(squareTopCricketGeometry, squareTopCricketMaterial);
+            squareTopCricket.position.set(9.6, 5.7, 0);
+            scene.add(squareTopCricket);
+
+            const circlePushCricketGeometry = new THREE.CylinderGeometry( 1, 1, 0.1, 32 );
+            const circlePushCricketMaterial = new THREE.MeshBasicMaterial( {color: "#373737"} );
+            const circlePushCricket = new THREE.Mesh( circlePushCricketGeometry, circlePushCricketMaterial );
+            circlePushCricket.position.set(11, 5.7, 0);
+            scene.add( circlePushCricket );
+
+            const cylinderPushCricketGeometry = new THREE.CylinderGeometry( 0.5, 0.2, 0.8, 32 );
+            const cylinderPushCricketMaterial = new THREE.MeshBasicMaterial( {color: "#4d4d4d"} );
+            const cylinderPushCricket = new THREE.Mesh( cylinderPushCricketGeometry, cylinderPushCricketMaterial );
+            cylinderPushCricket.position.set(11.3, 5.3, 0);
+            scene.add( cylinderPushCricket );
+
+            const chainTriggerCricketGeometry = new THREE.CylinderGeometry( 0.5, 0.5, 1, 32 );
+            const chainTriggerCricketMaterial = new THREE.MeshBasicMaterial( {color: "#bfbfbf"} );
+            const chainTriggerCricket = new THREE.Mesh( chainTriggerCricketGeometry, chainTriggerCricketMaterial );
+            chainTriggerCricket.rotation.x = Math.PI/2;
+            chainTriggerCricket.position.set(10.1, 6.3, 0);
+            scene.add( chainTriggerCricket);
+
+            /** End of Right Cricket **/
+
+            /** Left Cricket **/
+
+            const leftBodyCricketGeometry = new THREE.BoxGeometry(4, 10, 2);
+            const leftBodyCricket = new THREE.Mesh(leftBodyCricketGeometry, useMetalSpecularMaterial("#e85656"));
+            leftBodyCricket.position.x = -10
+            scene.add(leftBodyCricket);
+
+            const leftSwitchPowerCricketGeometry = new THREE.BoxGeometry(1.5, 0.5, 0.5);
+            const leftSwitchPowerCricketMaterial = new THREE.MeshPhysicalMaterial();
+            const leftSwitchPowerCricket = new THREE.Mesh(leftSwitchPowerCricketGeometry, leftSwitchPowerCricketMaterial);
+            leftSwitchPowerCricket.position.set(-8, 4.75, 0);
+            scene.add(leftSwitchPowerCricket);
+
+            const leftTriangleTopCricketGeometry = new THREE.CylinderGeometry( 1 , 1 , 2, 3, 1 );
+            const leftTriangleTopCricketMaterial = new THREE.MeshPhysicalMaterial();
+            const leftTriangleTopCricket = new THREE.Mesh(leftTriangleTopCricketGeometry, leftTriangleTopCricketMaterial);
+            leftTriangleTopCricket.position.set(-8.9, 5.5, 0);
+            leftTriangleTopCricket.rotation.x = Math.PI/2;
+            leftTriangleTopCricket.rotation.y = Math.PI/3;
+            scene.add(leftTriangleTopCricket);
+
+            const leftSquareTopCricketGeometry = new THREE.BoxGeometry(1.5, 1.5, 2);
+            const leftSquareTopCricketMaterial = new THREE.MeshPhysicalMaterial();
+            const leftSquareTopCricket = new THREE.Mesh(leftSquareTopCricketGeometry, leftSquareTopCricketMaterial);
+            leftSquareTopCricket.position.set(-9.6, 5.7, 0);
+            scene.add(leftSquareTopCricket);
+
+            const leftcirclePushCricketGeometry = new THREE.CylinderGeometry( 1, 1, 0.1, 32 );
+            const leftCirclePushCricketMaterial = new THREE.MeshBasicMaterial( {color: "#373737"} );
+            const leftcirclePushCricket = new THREE.Mesh( leftcirclePushCricketGeometry, leftCirclePushCricketMaterial );
+            leftcirclePushCricket.position.set(-11, 5.7, 0);
+            scene.add( leftcirclePushCricket );
+
+            const leftCylinderPushCricketGeometry = new THREE.CylinderGeometry( 0.5, 0.2, 0.8, 32 );
+            const leftCylinderPushCricketMaterial = new THREE.MeshBasicMaterial( {color: "#4d4d4d"} );
+            const leftCylinderPushCricket = new THREE.Mesh( leftCylinderPushCricketGeometry, leftCylinderPushCricketMaterial );
+            leftCylinderPushCricket.position.set(-11.3, 5.3, 0);
+            scene.add( leftCylinderPushCricket );
+
+            const leftChainTriggerCricketGeometry = new THREE.CylinderGeometry( 0.5, 0.5, 1, 32 );
+            const leftChainTriggerCricketMaterial = new THREE.MeshBasicMaterial( {color: "#bfbfbf"} );
+            const leftChainTriggerCricket = new THREE.Mesh( leftChainTriggerCricketGeometry, leftChainTriggerCricketMaterial );
+            leftChainTriggerCricket.rotation.x = Math.PI/2;
+            leftChainTriggerCricket.position.set(-10.1, 6.3, 0);
+            scene.add( leftChainTriggerCricket);
+
+            /** End of Left Cricket **/
+
+            animate();
+        }
+
+        init();
+    </script>
+</body>
+</html>
