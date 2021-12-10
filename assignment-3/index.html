@@ -15,6 +15,9 @@
 
         let scene, camera, renderer, pointLight, ambientLight;
         let controls, cube;
+        let degree = 90;
+        let orbitRadius = 20;
+        let zoomfactor = 0.5;
 
         /**
          * @param {string} color
@@ -58,6 +61,56 @@
                     pointLight.intensity = 1;
                 }
             }
+            else if (event.key == 'w'){
+                cube.position.z -= 0.5;
+                pointLight.position.z -= 0.5;
+            }
+            else if (event.key == 's'){
+                cube.position.z += 0.5;
+                pointLight.position.z += 0.5;
+            }
+            else if (event.key == 'a'){
+                cube.position.x -= 0.5;
+                pointLight.position.x -= 0.5;
+            }
+            else if (event.key == 'd'){
+                cube.position.x += 0.5;
+                pointLight.position.x += 0.5;
+            }
+            else if (event.key == 'd'){
+                cube.position.x += 0.5;
+                pointLight.position.x += 0.5;
+            }
+            else if (event.key == 'ArrowUp'){
+                // camera.position.z -= 0.5;
+                camera.zoom /= zoomfactor;
+                camera.updateProjectionMatrix();
+            }
+            else if (event.key == 'ArrowDown'){
+                // camera.position.z += 0.5;
+                camera.zoom *= zoomfactor;
+                camera.updateProjectionMatrix();
+            }
+            else if (event.key == 'ArrowRight'){
+                degree -= 1.0;
+
+                let sin = Math.sin(degree * Math.PI / 180);
+                let cos = Math.cos(degree * Math.PI / 180);
+
+                camera.position.x = orbitRadius * cos;
+                camera.position.z = orbitRadius * sin;
+                camera.lookAt(cube.position);
+            }
+            else if (event.key == 'ArrowLeft'){
+                degree += 1.0;
+
+                let sin = Math.sin(degree * Math.PI / 180);
+                let cos = Math.cos(degree * Math.PI / 180);
+
+                camera.position.x = orbitRadius * cos;
+                camera.position.z = orbitRadius * sin;
+                camera.lookAt(cube.position);
+            }
         };
 
         function animate(){
@@ -77,7 +130,7 @@
             camera.position.set(0, 0, 20);
 
             document.addEventListener("keydown", onDocumentKeyDown, false);
-
+            
             /**
              * Light 
              * NRP = 167
