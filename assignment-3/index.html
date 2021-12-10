@@ -131,6 +131,8 @@
 
             document.addEventListener("keydown", onDocumentKeyDown, false);
             
+            controls = new OrbitControls( camera, renderer.domElement );
+            
             /**
              * Light 
              * NRP = 167
