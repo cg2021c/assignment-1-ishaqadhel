@@ -186,6 +186,20 @@
 
             /** End of Left Cricket **/
 
+            /** Plane Geometry **/
+
+            const planeGeometry = new THREE.PlaneGeometry( 20, 20 );
+            const planeMaterial = new THREE.MeshBasicMaterial({
+                color: "#167167", 
+                side: THREE.DoubleSide
+            });
+            const plane = new THREE.Mesh( planeGeometry, planeMaterial );
+            plane.rotation.x = Math.PI / -2;
+            plane.position.set(0, -5, -3);
+            scene.add( plane );
+
+            /** End of Plane Geometry **/
+
             animate();
         }
 
